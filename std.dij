@@ -1,0 +1,48 @@
+% Numerical and ASCII constants
+0 -
+1 /
+n1 0 1 -
+2 1 n1 -
+3 2 n1 -
+4 3 n1 -
+5 4 n1 -
+6 5 n1 -
+7 6 n1 -
+8 7 n1 -
+9 8 n1 -
+10 9 n1 -
+newline 10
+
+% Function related
+arg0 -
+arg1 -
+arg2 -
+arg3 -
+
+count -
+:count count count n1 -;
+
+print_arg0 -
+:print_arg0 nout arg0 ~ out newline;
+
+% Exports
+export 0 &&
+export 1 &&
+export n1 &&
+export 2 &&
+export 3 &&
+export 4 &&
+export 5 &&
+export 6 &&
+export 7 &&
+export 8 &&
+export 9 &&
+export 10 &&
+export newline &&
+
+export arg0 &&
+export arg1 &&
+export arg2 &&
+export arg3 &&
+export count &&
+export print_arg0 &&

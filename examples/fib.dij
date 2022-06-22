@@ -1,0 +1,29 @@
+@@std
+
+:fib
+	num arg0
+	ret-
+	flag-
+	
+	:fib.0 flag/            % If num == 0, return 0
+		fib-;
+	:fib.1 flag/            % If num == 1, return 1
+		fib/;
+	
+	:flag.0                 % If num >= 2
+		arg0 num 1 -
+		o1 fib              % o1 = fib(num - 1)
+		arg0 num 2 -
+		o2 fib              % o2 = fib(num - 2)
+		fib o1 0 o2 - -     % return o1 + o2
+	;
+	
+	fib num$#
+	flag flag$#
+;
+
+% Print 10 then fib(10)
+nout 10
+out newline
+arg0 10
+nout fib

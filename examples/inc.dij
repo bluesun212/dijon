@@ -1,0 +1,28 @@
+@@std
+
+:count
+    num /
+
+	:count.2
+		:cf.0 cf/;
+
+		nout num        % print num
+		out newline
+		left num arg0 - % left = num - arg0
+		cf -
+		cf left $#      % cf = 1 if left = 0, else cf = 0
+		count cf $#     % run count.$cf
+	;
+
+	:count.1 out end &;   % print "end" for fun at the end
+
+	:count.0
+		num num n1 -    % num -= 1, then repeat
+		count.2
+	;
+
+	count.2
+;
+
+arg0 10
+count

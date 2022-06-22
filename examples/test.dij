@@ -1,0 +1,51 @@
+@@std
+:set_x arg0$x# arg1;
+
+obj1 - &&
+obj2 - &&
+
+arg0 obj1
+arg1 2
+set_x
+
+arg0 obj2
+arg1 10
+set_x
+
+nout obj1$x#
+out newline
+nout obj2$x#
+out newline
+out newline
+
+% Array tests
+:print_array
+    length arg0$length#
+    i 0
+
+    :pa_sub.0 pa_sub.2;
+
+    :pa_sub.2
+        :flag.0 flag 1;
+
+        nout arg0$i$#
+        i i n1 -
+        flag 0
+        flag length i - #
+        pa_sub flag $#
+    ;
+
+    pa_sub.0
+;
+
+array - &&
+array$length# 6
+array$0# 3
+array$1# 1
+array$2# 4
+array$3# 1
+array$4# 5
+array$5# 9
+
+arg0 array
+print_array
