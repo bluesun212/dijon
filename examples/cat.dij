@@ -1,0 +1,19 @@
+@@std
+
+:cat.0 cat.2;
+:cat.2
+    % Input a character then output it
+    c in
+    out c
+
+    % Flag = 1 if c == 10 or 13, 0 OW
+    :flag.10 flag /;
+    :flag.13 flag /;
+    flag -
+    flag c $#
+
+    % Loop if flag == 0
+    cat flag $#
+;
+
+cat.0

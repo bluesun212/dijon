@@ -1,0 +1,80 @@
+@@std
+
+%%% CREATE STRINGS
+% of_beer = " of beer", bottle = " bottle", o_more = "o more"
+arg0 space~sb~arg0 lo~sb~arg0 lf~sb~arg0 space~sb~arg0 lb~sb~arg0 le~sb~sb~arg0 lr~of_beer sb~sb_clear
+arg0 space~sb~arg0 lb~sb~arg0 lo~sb~arg0 lt~sb~sb~arg0 ll~sb~arg0 le~bottle sb~sb_clear
+arg0 lo~sb~arg0 space~sb~arg0 lm~sb~arg0 lo~sb~arg0 lr~sb~arg0 le~o_more sb~sb_clear
+
+% on_the_wall = "on the wall"
+arg0 space~sb~arg0 lo~sb~arg0 ln~sb~arg0 space~sb~arg0 lt~sb~arg0 lh~sb~arg0 le~sb
+arg0 space~sb~arg0 lw~sb~arg0 la~sb~arg0 ll~sb~on_the_wall sb~
+sb_clear
+
+% line2.0 = "Take one down, pass it around, "
+arg0 ut~sb~arg0 la~sb~arg0 lk~sb~arg0 le~sb~arg0 space~sb~arg0 lo~sb~arg0 ln~sb~arg0 le~sb
+arg0 space~sb~arg0 ld~sb~arg0 lo~sb~arg0 lw~sb~arg0 ln~sb~arg0 comma~sb~arg0 space~sb
+arg0 lp~sb~arg0 la~sb~arg0 ls~sb~sb~arg0 space~sb~arg0 li~sb~arg0 lt~sb~arg0 space~sb
+arg0 la~sb~arg0 lr~sb~arg0 lo~sb~arg0 lu~sb~arg0 ln~sb~arg0 ld~sb~arg0 comma~sb~arg0 space~line2.0 sb
+sb_clear
+
+% line2.1 = "Go to the store, buy some more,"
+arg0 ug~sb~arg0 lo~sb~arg0 space~sb~arg0 lt~sb~arg0 lo~sb~arg0 space~sb~arg0 lt~sb~arg0 lh~sb~arg0 le~sb
+arg0 space~sb~arg0 ls~sb~arg0 lt~sb~arg0 lo~sb~arg0 lr~sb~arg0 le~sb~arg0 comma~sb~arg0 space~sb
+arg0 lb~sb~arg0 lu~sb~arg0 ly~sb~arg0 space~sb~arg0 ls~sb~arg0 lo~sb~arg0 lm~sb~arg0 le~sb~arg0 space~sb
+arg0 lm~sb~arg0 lo~sb~arg0 lr~sb~arg0 le~sb~arg0 comma~sb~arg0 space~line2.1 sb
+sb_clear
+
+%%% PRINTING FUNCTIONS
+:print_bottles
+    n arg0
+
+    :num_flag.0 num_flag /;
+    :num_print.0 nout n;            % print the number n
+    :num_print.1 out arg1 ~ arg0 o_more ~ strout;   % print arg1 + "o more"
+    :print_s.0 out ls;
+
+    % Print number or "no more" (taking capitalization into account)
+    num_flag -
+    num_flag n $#
+    num_print num_flag $#
+
+    % Print " bottle"
+    arg0 bottle ~ strout
+
+    % Print s if n != 1
+    num_flag -
+    num_flag n 1 - #
+    print_s num_flag $#
+
+    % Print " of beer" and return
+    arg0 of_beer ~ strout
+    arg0 n
+;
+
+:print_stanza
+    n arg0 ~ x arg1
+    :flag.0 flag /;
+
+    % First line
+    arg1 un ~ print_bottles ~ arg1 ln
+    arg0 on_the_wall ~ strout
+    out comma ~ out space
+    arg0 n ~ print_bottles
+    out period ~ out newline
+
+    % Second line
+    flag -
+    arg0 n 1 - ~ arg1 100 ~ m mod ~ arg1 ln
+    flag n $#
+    arg0 line2 flag $# ~ strout
+    arg0 m ~ print_bottles
+    arg0 on_the_wall ~ strout
+    out period ~ out newline ~ out newline
+
+    arg0 n ~ arg1 x
+;
+
+%%% MAIN LOOP
+:print_internal arg0 99 arg0 - ~ print_stanza;
+arg0 0 ~ arg1 100 ~ arg2 print_internal && ~ for_range
