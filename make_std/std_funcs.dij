@@ -1,0 +1,183 @@
+%%% Beginning of handwritten section
+
+std_version 1
+
+%%% Random functions
+none - &&
+none$__is_none# /
+
+:is_none arg0 arg0$__is_none# ~ is_none bool;  % FIXME
+
+:bool
+    flag /
+    :flag.0 flag -;
+    flag arg0 $# ~ bool flag
+;
+
+:if arg1$bool$#;
+
+:for_range
+    :for.2
+        :flag.0 flag /;
+        flag -
+        flag end i - $#
+        for flag $#
+    ;
+
+    :for.0
+        arg0 i
+        func $
+        i i n1 -
+        for.2
+    ;
+
+    start arg0 ~ end arg1 ~ func arg2
+    i start
+    for.2
+    arg0 start
+;
+
+export std_version &&
+export none &&
+export is_none &&
+export bool &&
+export if &&
+export for_range &&
+
+
+
+%%% Array functions
+% TODO: push, pop, insert, remove, indexof, reverse, filter, map, reduce
+:arrnew arrnew - && ~ arrnew$__length# arg0;
+:arrlen arrlen arg0$__length#;
+
+:arrext
+    a arg0 ~ b arg1 ~ x arg2
+    a_len a$__length# ~ b_len b$__length#
+    a$__length# a_len 0 b_len --
+
+    :internal i a_len 0 arg0-- ~ a$i$# b$arg0$#;
+    arg0 0 ~ arg1 b_len ~ arg2 internal && ~ for_range
+    arg0 a ~ arg1 b ~ arg2 x
+;
+
+:arrcat
+    a arg0 ~ b arg1
+    arg0 0 ~ arrcat arrnew
+    arg0 arrcat ~ arg1 a ~ arrext
+    arg0 arrcat ~ arg1 b ~ arrext
+    arg0 a ~ arg1 b
+;
+
+:arrcpy
+    old arg0
+    arg0 0 ~ arrcpy arrnew
+    arg0 arrcpy ~ arg1 old ~ arrext
+    arg0 old
+;
+
+export arrnew &&
+export arrlen &&
+export arrext &&
+export arrcat &&
+export arrcpy &&
+
+
+
+%%% String functions
+% TODO: strstr, strind, strcmp
+% trim, toupper, tolower, startswith, endswith, replace, lastindexof,
+:strnew x arg0 ~ arg0 0 ~ strnew arrnew ~ arg0 x;
+:strout
+    :internal out str$arg0$#;
+    str arg0 ~ x arg1 ~ y arg2
+    arg0 0 ~ arg1 str$__length# ~ arg2 internal && ~ for_range
+    arg0 str ~ arg1 x ~ arg2 y
+;
+
+:strcat arrcat;
+:strcpy arrcpy;
+:chr chr strnew ~ chr$__length# 1 ~ chr$0# arg0;
+:sb sb$sb$__length#$# arg0 ~ sb$__length# sb$__length# n1 -;
+:sb_clear sb strnew;
+sb_clear
+
+export strnew &&
+export strout &&
+export strcat &&
+export strcpy &&
+export chr &&
+export sb &&
+export sb_clear &&
+
+
+
+%%% Math functions
+:safe_invert.0  % TODO REMOVE
+    :inv.0 safe_invert.0 0;
+    :inv.1 safe_invert.0 1 arg0 /;
+    inv bool $#
+;
+
+:safe_multiply
+    :flag.0 flag/;
+    :mult.0 safe_multiply arg0 1 arg1 / /;
+    :mult.1 safe_multiply 0;
+    flag -
+    flag arg0 $#
+    flag arg1 $#
+    mult flag $#
+;
+
+:denominator __builtin.den arg0 ~ denominator __builtin.den;
+:frac_part __builtin.frac arg0 ~ frac_part __builtin.frac;
+:sign       % TODO Replace safe_invert with safe_multiply
+    x arg0
+    den denominator
+    arg0 arg0 1 den //
+    arg0 safe_invert.0
+    den denominator
+    sign arg0 1 den //
+    arg0 x
+;
+:cmp x arg0 ~ arg0 arg0 arg1 - ~ cmp sign ~ arg0 x;
+:abs y arg1 ~ arg1 sign ~ abs safe_multiply ~ arg1 y;
+:is_int x arg0 ~ arg0 frac_part ~ is_int 1 bool - ~ arg0 x;
+
+:floor
+    :floor.0 arg0 x ~ floor x frac_part -;
+    :floor.1 floor x;
+    x arg0 ~ arg0 is_int ~ floor bool $# ~ arg0 x
+;
+
+:ceil
+    :ceil.0 arg0 x n1 - ~ ceil floor;
+    :ceil.1 ceil x;
+    x arg0 ~ arg0 is_int ~ ceil bool &# ~ arg0 x
+;
+
+:round x arg0 ~ arg0 x n1 2 / - ~ round floor ~ arg0 x;  % TODO: Behavior not quite right
+
+:mod
+    x arg0
+    arg0 x arg1 /
+    arg0 floor ~ mod x safe_multiply -
+    arg0 x
+;
+
+:min ;  % TODO
+:max ;
+
+export safe_multiply &&
+export denominator &&
+export frac_part &&
+export sign &&
+export cmp &&
+export abs &&
+export is_int &&
+export floor &&
+export ceil &&
+export round &&
+export mod &&
+export min &&
+export max &&
