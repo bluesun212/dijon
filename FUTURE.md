@@ -1,10 +1,13 @@
 ### Possible future features
-This is a non-exaustive list of features that could be implemented in either the language or the reference interpreter in the future:
+This is a non-exhaustive list of features that could be implemented in Dijon:
 
- - Interpreter flags in comments
  - Shorthand "string mode" and function call/definition shorthand
- - Tail call optimization
- - Temporarily ignore "trigger can't trigger itself" restriction 
- - Debugger
- - More builtin keywords
-   - sign, denominator, version
+   - `string "Hello, world!"`
+     - `string "Hi"` equivalent to `sb_clear ~ arg0 uh ~ sb ~ arg0 li ~ string sb`
+   - `return_val function(1 2)` equivalent to `arg0 1 ~ arg1 2 ~ return_val function`
+ - Trigger flags `:varname|flag ... ;`
+   - `set` flag: runs trigger when variable is set, rather than fetched
+   - `self` flag: trigger can run itself
+ - `#` command with 1 argument (rebase)
+   - Let `var` be a reference
+     - calling `var #` will set var to the Variable it's referencing
