@@ -1,7 +1,7 @@
 <img width="96px" src="./dijon.png" align="left">
 
 # Dijon
-###### An imperative, stack-oriented esoteric language with highly-nontraditional control flow constructs
+###### An imperative, stack-oriented esoteric language with highly non-traditional control flow constructs
 <br>
 
 ## Introduction
@@ -9,10 +9,10 @@ Dijon is a language that I initially came up with in 2013.  The original design 
 
 ## Documentation
 Please see the following links to view the language reference, code examples, and future plans.
-- Reference
-- Standard Library
-- Examples
-- Future features
+- [Reference](./REFERENCE.md)
+- [Standard Library](./STD_LIBRARY.md)
+- [Examples](./examples/)
+- [Future features](FUTURE.md)
 
 ## Implementation
-Please see the reference interpreter, pydijon, which is written in Python.  
+Please see the reference interpreter, [PyDijon](https://github.com/bluesun212/pydijon), which is written in Python.  
